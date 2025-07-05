@@ -1,44 +1,65 @@
-import { Trash2, Edit } from "lucide-react";
-import { motion } from "framer-motion";
+import { Pencil, Trash2 } from "lucide-react";
 import { WishlistItem } from "../types";
+import { motion } from "framer-motion";
 
-type Props = {
+interface Props {
   item: WishlistItem;
   onDelete: (id: string) => void;
-  onEdit?: (item: WishlistItem) => void;
-};
+  onEdit: (item: WishlistItem) => void;
+}
 
+/*************  ✨ Windsurf Command ⭐  *************/
+/**
+ * A card component for displaying a single WishlistItem.
+ *
+ * It displays the item's image, name, price, and who added it.
+ * It also provides two buttons for editing or deleting the item.
+ *
+ * @param {WishlistItem} item
+ * @param {(id: string) => void} onDelete
+ * @param {(item: WishlistItem) => void} onEdit
+ * @returns
+ */
+/*******  99716d55-39ed-491a-bb4d-570934c63339  *******/
 export default function WishlistItemCard({ item, onDelete, onEdit }: Props) {
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      whileHover={{ scale: 1.02 }}
-      className="p-4 border rounded-lg bg-white flex items-center justify-between shadow"
+      data-aos="fade-up"
+      className="border rounded-lg p-4 bg-white shadow-sm hover:shadow-md transition"
+      whileHover={{ scale: 1.01 }}
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
     >
-      <div className="flex gap-4 items-center">
+      <div className="flex items-center gap-4">
         <img
           src={item.image}
           alt={item.name}
-          className="w-16 h-16 rounded object-cover"
+          className="w-20 h-20 object-cover rounded-md border"
         />
-        <div>
-          <p className="font-medium">{item.name}</p>
-          <p className="text-sm text-gray-500">₹{item.price}</p>
-          <p className="text-xs text-muted-foreground">
-            Added by {item.addedBy}
+        <div className="flex-1">
+          <h3 className="text-lg font-semibold text-gray-800">{item.name}</h3>
+          <p className="text-sm text-gray-600 mb-1">₹{item.price}</p>
+          <p className="text-xs text-gray-500">
+            Added by <span className="font-medium">{item.addedBy}</span>
           </p>
         </div>
-      </div>
-      <div className="flex gap-2">
-        {onEdit && (
-          <button onClick={() => onEdit(item)} className="text-blue-500">
-            <Edit size={16} />
+        <div className="flex gap-2">
+          <button
+            onClick={() => onEdit(item)}
+            className="text-blue-500 hover:text-blue-700 transition"
+            title="Edit"
+          >
+            <Pencil size={18} />
           </button>
-        )}
-        <button onClick={() => onDelete(item._id)} className="text-red-500">
-          <Trash2 size={16} />
-        </button>
+          <button
+            onClick={() => onDelete(item._id)}
+            className="text-red-500 hover:text-red-700 transition"
+            title="Delete"
+          >
+            <Trash2 size={18} />
+          </button>
+        </div>
       </div>
     </motion.div>
   );

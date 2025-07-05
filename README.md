@@ -1,69 +1,97 @@
-# React + TypeScript + Vite
+# FlockShop.ai - Collaborative Product Wishlist App (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview
 
-Currently, two official plugins are available:
+This repository contains the frontend application for the FlockShop.ai Collaborative Product Wishlist App. The goal of this application is to provide a shared wishlist experience where multiple users can collaboratively create, manage, and interact with wishlists in real-time, simulating a group shopping spree scenario.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Key Features (Frontend)
 
-## Expanding the ESLint configuration
+- **User Authentication:**
+  - Sign up and Log in functionality (mock authentication or Firebase Auth integration).
+- **Wishlist Management:**
+  - Create new wishlists.
+- **Product Interaction:**
+  - Add new products to a wishlist (including product name, image URL, and price).
+  - Edit existing product details.
+  - Remove products from a wishlist.
+- **Collaboration Features:**
+  - Invite others to join a wishlist (mocked functionality for this assignment).
+  - Display who added which item (username or email).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech Stack
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+This frontend application is built using:
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- **Framework:** [Choose one: React / Vue.js / Angular]
+  - [If React: React Router for navigation, Redux/Context API for state management (optional, but good to mention if used)]
+  - [If Vue: Vue Router for navigation, Vuex for state management (optional)]
+  - [If Angular: Angular Router for navigation, RxJS for reactive programming]
+- **Styling:** [e.g., CSS Modules, Styled Components, Tailwind CSS, Material-UI, Bootstrap, plain CSS]
+- **API Communication:** [e.g., Fetch API, Axios]
+- **Authentication (Optional choice):** [e.g., Firebase Authentication, Mock Authentication]
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Setup Instructions
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Follow these steps to get the frontend application up and running on your local machine.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js (LTS version recommended)
+- npm (Node Package Manager) or Yarn
+
+### Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/your-username/flockshop-wishlist-frontend.git](https://github.com/your-username/flockshop-wishlist-frontend.git)
+    cd flockshop-wishlist-frontend
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    # OR
+    yarn install
+    ```
+
+### Configuration
+
+1.  **Environment Variables:**
+    Create a `.env` file in the root of the project.
+    If you are connecting to a backend, you'll need to specify its URL.
+
+    ```env
+    # Example for React:
+    REACT_APP_BACKEND_API_URL=http://localhost:5000/api
+    # Or for Vue:
+    VUE_APP_BACKEND_API_URL=http://localhost:5000/api
+    # Or for Angular (in environment.ts/prod.ts):
+    # const environment = {
+    #   production: false,
+    #   backendApiUrl: 'http://localhost:5000/api'
+    # };
+    ```
+
+    If using Firebase, add your Firebase configuration details here.
+
+    ```env
+    # Example for Firebase Auth:
+    REACT_APP_FIREBASE_API_KEY=YOUR_FIREBASE_API_KEY
+    REACT_APP_FIREBASE_AUTH_DOMAIN=YOUR_FIREBASE_AUTH_DOMAIN
+    REACT_APP_FIREBASE_PROJECT_ID=YOUR_FIREBASE_PROJECT_ID
+    REACT_APP_FIREBASE_STORAGE_BUCKET=YOUR_FIREBASE_STORAGE_BUCKET
+    REACT_APP_FIREBASE_MESSAGING_SENDER_ID=YOUR_FIREBASE_MESSAGING_SENDER_ID
+    REACT_APP_FIREBASE_APP_ID=YOUR_FIREBASE_APP_ID
+    ```
+
+2.  **Backend Server:**
+    Ensure your backend server is running and accessible at the `REACT_APP_BACKEND_API_URL` (or equivalent) specified above. Refer to the [Backend Repository](https://github.com/your-username/flockshop-wishlist-backend) for setup instructions.
+
+### Running the Application
+
+To start the development server:
+
+```bash
+npm start
+# OR
+yarn start
 ```
