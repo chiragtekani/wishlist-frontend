@@ -21,7 +21,7 @@ export default function WishlistPage() {
   }, [id]);
 
   const handleDelete = async (itemId: string) => {
-    await fetch(`http://localhost:5000/api/wishlist/${id}/item/${itemId}`, {
+    await fetch(`http://localhost:5000/api/wishlist/${id}/items/${itemId}`, {
       method: "DELETE",
     });
     setItems((prev) => prev.filter((i) => i._id !== itemId));
@@ -35,18 +35,18 @@ export default function WishlistPage() {
       name,
       image,
       price,
-      addedBy: user.username,
+      createdBy: user.userId || user._id,
     };
 
     let response;
     if (editingId) {
-      response = await fetch(`http://localhost:5000/api/wishlist/${id}/item/${editingId}`, {
+      response = await fetch(`http://localhost:5000/api/wishlist/${id}/items/${editingId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
     } else {
-      response = await fetch(`http://localhost:5000/api/wishlist/${id}/item`, {
+      response = await fetch(`http://localhost:5000/api/wishlist/${id}/items`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

@@ -8,7 +8,6 @@ interface Props {
   onEdit: (item: WishlistItem) => void;
 }
 
-/*************  ✨ Windsurf Command ⭐  *************/
 /**
  * A card component for displaying a single WishlistItem.
  *
@@ -20,7 +19,6 @@ interface Props {
  * @param {(item: WishlistItem) => void} onEdit
  * @returns
  */
-/*******  99716d55-39ed-491a-bb4d-570934c63339  *******/
 export default function WishlistItemCard({ item, onDelete, onEdit }: Props) {
   return (
     <motion.div
