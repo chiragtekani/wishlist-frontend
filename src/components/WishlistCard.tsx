@@ -24,7 +24,9 @@ export default function WishlistCard({ wishlist }: Props) {
             {wishlist.title}{" "}
           </h3>
         </div>
-        <p className="text-sm text-gray-500">Created by: {wishlist.owner}</p>
+        <p className="text-sm text-gray-500">
+          Created by: {wishlist.owner?.username}
+        </p>
       </Link>
     </motion.div>
   );

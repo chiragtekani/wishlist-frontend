@@ -3,12 +3,13 @@ export interface User {
   userId: string;
   email: string;
   username: string; 
+  _id?: string;
 }
 
 export interface Wishlist {
   _id: string;
   title: string;
-  owner: string; // This should be a User object or ID
+  owner: User; // This should be a User object or ID
   members: string[]; // Array of User IDs
   items: WishlistItem[];
   createdAt: string;

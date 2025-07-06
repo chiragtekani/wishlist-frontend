@@ -7,12 +7,24 @@ export default function Dashboard() {
   const [wishlists, setWishlists] = useState<Wishlist[]>([]);
   const [name, setName] = useState("");
   const { user } = useAuth();
-console.log("suer ", user)
+  console.log("user ", user);
   // Fetch all wishlists
   const fetchWishlists = async () => {
-    const res = await fetch("http://localhost:5000/api/wishlist");
-    const data = await res.json();
-    setWishlists(data);
+    try {
+      const res = await fetch("http://localhost:5000/api/wishlist");
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.error("Error fetching wishlists:", data.message);
+        setWishlists([]); // fallback
+        return;
+      }
+
+      setWishlists(data); // ✅ Expecting an array
+    } catch (err) {
+      console.error("Unexpected error:", err);
+      setWishlists([]);
+    }
   };
 
   useEffect(() => {
@@ -26,7 +38,7 @@ console.log("suer ", user)
 
     const payload = {
       title: name, // ✅ Match the backend field
-      owner: user.username,
+      owner: user.userId,
     };
 
     const res = await fetch("http://localhost:5000/api/wishlist", {
@@ -39,7 +51,7 @@ console.log("suer ", user)
     setWishlists((prev) => [...prev, newWishlist]);
     setName("");
   };
-
+  console.log("wishlistssss ", wishlists);
   return (
     <div className="max-w-6xl mx-auto px-6 py-10 space-y-8">
       <h2 className="text-3xl font-bold mb-6">Your Wishlists</h2>
@@ -64,9 +76,11 @@ console.log("suer ", user)
 
       {/* 🧾 Wishlists Display */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {wishlists.map((wishlist) => (
-          <WishlistCard key={wishlist._id} wishlist={wishlist} />
-        ))}
+        {wishlists
+          .filter((wishlist) => wishlist.owner._id === user?.userId)
+          .map((wishlist) => (
+            <WishlistCard key={wishlist._id} wishlist={wishlist} />
+          ))}
       </div>
     </div>
   );
