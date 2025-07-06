@@ -9,10 +9,35 @@ export default function Signup() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    login({ email, username });
+    login({
+      email, username,
+      userId: ""
+    });
     navigate("/");
+    // ... (inside handleSubmit)
+try {
+  const res = await fetch("http://localhost:5000/api/auth/signup", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name: username, email, password }),
+  });
+
+  if (!res.ok) {
+    const errorText = await res.text(); // Safely read as text if not JSON
+    console.error("Request failed:", errorText);
+    return;
+  }
+
+  const data = await res.json();
+  console.log("Success:", data);
+
+} catch (err) {
+  console.error("Network or parsing error:", err);
+}
+
+// ...
   };
 
   return (
@@ -50,3 +75,7 @@ export default function Signup() {
     </div>
   );
 }
+function setError(message: any) {
+  throw new Error("Function not implemented.");
+}
+

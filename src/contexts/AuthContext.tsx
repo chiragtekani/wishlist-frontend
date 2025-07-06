@@ -1,5 +1,4 @@
-// src/contexts/AuthContext.tsx
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { User } from "../types";
 
 interface AuthContextType {
@@ -13,9 +12,22 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
+  // 🔁 Load user from localStorage on app start
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser);
+      } catch (err) {
+        console.error("Failed to parse user from localStorage:", err);
+      }
+    }
+  }, []);
+
   const login = (user: User) => {
     setUser(user);
-    localStorage.setItem("user", JSON.stringify(user)); // Optional: persist session
+    localStorage.setItem("user", JSON.stringify(user));
   };
 
   const logout = () => {

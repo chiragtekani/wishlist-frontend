@@ -10,10 +10,10 @@ export default function CreateWishlist() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return;
-    const res = await fetch("/api/wishlist", {
+    const res = await fetch("http://localhost:5000/api/wishlist", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, owner: user.username }),
+     body: JSON.stringify({ title: name, owner: user.userId }),
     });
     if (res.ok) {
       navigate("/");

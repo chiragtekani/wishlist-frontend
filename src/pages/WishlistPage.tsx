@@ -15,13 +15,13 @@ export default function WishlistPage() {
   const { user } = useAuth();
 
   useEffect(() => {
-    fetch(`/api/wishlist/${id}`)
+    fetch(`http://localhost:5000/api/wishlist/${id}`)
       .then((res) => res.json())
       .then((data) => setItems(data.items));
   }, [id]);
 
   const handleDelete = async (itemId: string) => {
-    await fetch(`/api/wishlist/${id}/item/${itemId}`, {
+    await fetch(`http://localhost:5000/api/wishlist/${id}/item/${itemId}`, {
       method: "DELETE",
     });
     setItems((prev) => prev.filter((i) => i._id !== itemId));
@@ -40,19 +40,18 @@ export default function WishlistPage() {
 
     let response;
     if (editingId) {
-      response = await fetch(`/api/wishlist/${id}/item/${editingId}`, {
+      response = await fetch(`http://localhost:5000/api/wishlist/${id}/item/${editingId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
     } else {
-      response = await fetch(`/api/wishlist/${id}/item`, {
+      response = await fetch(`http://localhost:5000/api/wishlist/${id}/item`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
     }
-
     const updatedItem = await response.json();
 
     setItems((prev) =>

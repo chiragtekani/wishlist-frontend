@@ -21,7 +21,7 @@ export default function WishlistCard({ wishlist }: Props) {
         <div className="flex items-center gap-2">
           <Heart size={18} className="text-pink-500" />
           <h3 className="text-xl font-semibold text-blue-600">
-            {wishlist.name}
+            {wishlist.title}{" "}
           </h3>
         </div>
         <p className="text-sm text-gray-500">Created by: {wishlist.owner}</p>

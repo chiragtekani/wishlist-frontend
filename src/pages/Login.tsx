@@ -13,7 +13,7 @@ export default function Login() {
     e.preventDefault();
     setError(null);
     try {
-      const response = await fetch("/api/auth/login", {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -26,8 +26,12 @@ export default function Login() {
         throw new Error(errData.message || "Login failed");
       }
 
-      const user = await response.json();
-      login(user);
+      const backendUser = await response.json();
+      login({
+        userId: backendUser.userId,
+        email: backendUser.email,
+        username: backendUser.username,
+      }); // Ensure backend returns 'username' or map 'name' to 'username'
       navigate("/");
     } catch (err: any) {
       setError(err.message);

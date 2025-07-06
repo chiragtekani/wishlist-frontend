@@ -6,13 +6,18 @@ import "./index.css";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { AuthProvider } from "./contexts/AuthContext";
 
 function RootApp() {
   useEffect(() => {
     AOS.init({ duration: 800 });
   }, []);
 
-  return <App />;
+  return (
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  );
 }
 
 createRoot(document.getElementById("root")!).render(
